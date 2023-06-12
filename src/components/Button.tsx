@@ -17,8 +17,13 @@ const ButtonStyled = styled.button<IButton>`
   ${({ theme, variant }) => {
     if (variant === "secondary") {
       return css`
-        background-color: ${theme.palette.secondary.dark};
+        border: 2px solid ${theme.palette.primary.dark};
+        background-color: ${theme.palette.neutral.white};
         color: ${theme.palette.text.secondary};
+        &:hover {
+          background-color: ${theme.palette.primary.dark};
+          color: ${theme.palette.text.primary};
+        }
       `;
     } else {
       return css`
@@ -55,7 +60,6 @@ const ButtonStyled = styled.button<IButton>`
     `};
 
   display: block;
-  border: none;
   border-radius: 4px;
   cursor: pointer;
   opacity: 1;
