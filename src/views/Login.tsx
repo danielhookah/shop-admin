@@ -11,6 +11,8 @@ import { ILogin } from "types/forms/auth";
 import { RootState } from "store/store";
 import { loginUser } from "store/actions/authActions";
 import { useAppDispatch, useAppSelector } from "hooks/redux";
+import { toast } from "react-toastify";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   align-self: center;
@@ -23,14 +25,16 @@ const Wrapper = styled.div`
 
 const Login: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isLoading, error } = useAppSelector((state: RootState) => state.auth);
+  const { isLoading } = useAppSelector((state: RootState) => state.auth);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ILogin>({
-    mode: "all",
+    mode: "onSubmit",
     defaultValues: {
       email: "",
       password: "",
@@ -39,7 +43,13 @@ const Login: React.FC = () => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    dispatch(loginUser(data)).then(res => console.log(res))
+    dispatch(loginUser(data))
+      .unwrap()
+      .then(() => {
+        const origin = location.state?.from?.pathname || '/app';
+        navigate(origin);
+      })
+      .catch(err => toast.error(err))
   });
 
   return (
@@ -61,7 +71,7 @@ const Login: React.FC = () => {
             error={errors.password?.message}
             {...register("password")}
           />
-          <Button ml="auto">Login</Button>
+          <Button disabled={isLoading} ml="auto">Login</Button>
         </form>
       </Card>
     </Wrapper>

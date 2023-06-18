@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";

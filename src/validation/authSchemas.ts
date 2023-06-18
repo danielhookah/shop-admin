@@ -30,6 +30,7 @@ export const registerSchema = yup.object().shape({
   password_confirmation: yup
     .string()
     .oneOf([yup.ref("password")], "Passwords doesnt match"),
-  first_name: yup.string(),
-  last_name: yup.string(),
+  username: yup.string(),
+  // first_name: yup.string(),
+  // last_name: yup.string(),
 });

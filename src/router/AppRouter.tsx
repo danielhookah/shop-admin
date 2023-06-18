@@ -1,24 +1,30 @@
 import { Route, Routes } from "react-router-dom";
-import { routes } from "./routes";
+import Guest from "layouts/Guest";
+import Home from "views/Home";
+import Login from "views/Login";
+import Register from "views/Register";
+import User from "layouts/User";
+import NotFound from "views/NotFound";
+import PrivateRoute from "./PrivateRoute";
 
 const AppRouter: React.FC = () => {
   return (
     <Routes>
-      {routes.map((route) => (
-        <Route
-          key={route.path}
-          path={route.path}
-          element={route.element}
-        >
-          {route.children && route.children.map((childRoute) => (
-            <Route
-              key={childRoute.path}
-              path={childRoute.path}
-              element={childRoute.element}
-            />
-          ))}
-        </Route>
-      ))}
+      <Route key="/" path="/" element={<Guest />}>
+        <Route index element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+      <Route key="/app" path="/app" element={
+        <PrivateRoute>
+          <User />
+        </PrivateRoute>
+      }>
+        <Route index element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+      </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
