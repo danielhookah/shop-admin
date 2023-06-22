@@ -47,6 +47,7 @@ const Login: React.FC = () => {
       .unwrap()
       .then(() => {
         const origin = location.state?.from?.pathname || '/app';
+        console.log('origin', origin)
         navigate(origin);
       })
       .catch(err => toast.error(err))

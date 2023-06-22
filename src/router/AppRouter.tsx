@@ -6,11 +6,16 @@ import Register from "views/Register";
 import User from "layouts/User";
 import NotFound from "views/NotFound";
 import PrivateRoute from "./PrivateRoute";
+import GuestRoute from "./GuestRoute";
 
 const AppRouter: React.FC = () => {
   return (
     <Routes>
-      <Route key="/" path="/" element={<Guest />}>
+      <Route key="/" path="/" element={
+        <GuestRoute>
+          <Guest />
+        </GuestRoute>
+      }>
         <Route index element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

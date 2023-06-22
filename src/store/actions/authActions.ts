@@ -7,11 +7,11 @@ export const loginUser = createAsyncThunk(
   async (data: ILogin, { rejectWithValue }) => {
     try {
       const response = await login(data);
-      const { user, token } = response;
-      // localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('token', token);
+      const { user, accessToken } = response;
+      console.log(response)
+      localStorage.setItem('user', JSON.stringify(user));
 
-      return { user, token };
+      return { user, token: accessToken };
     } catch (error: any) {
       if (error?.response?.data) return rejectWithValue(error.response.data);
       return rejectWithValue(error.message)

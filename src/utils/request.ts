@@ -23,10 +23,13 @@ instance.interceptors.response.use(
   },
   async (error) => {
     if (error.response && error.response.status === 401) {
-      if ([LOGIN, REGISTER, REFRESH_TOKEN].some(el => error.request.responseURL.includes(el))) return
+      if ([LOGIN, REGISTER, REFRESH_TOKEN].some(el => error.request.responseURL.includes(el))) {
+        return Promise.reject(error)
+      }
 
       try {
         const token = await refreshToken();
+        localStorage.setItem('token', token);
         const config = error.config;
         config.headers['Authorization'] = `Bearer ${token}`;
         return axios.request(config);
