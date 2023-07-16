@@ -8,8 +8,8 @@ export const loginUser = createAsyncThunk(
     try {
       const response = await login(data);
       const { user, accessToken } = response;
-      console.log(response)
       localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', accessToken);
 
       return { user, token: accessToken };
     } catch (error: any) {
@@ -24,11 +24,11 @@ export const registerUser = createAsyncThunk(
   async (data: IRegister, { rejectWithValue }) => {
     try {
       const response = await register(data);
-      const { user, token } = response;
-      // localStorage.setItem('user', JSON.stringify(user));
-      localStorage.setItem('token', token);
+      const { user, accessToken } = response;
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', accessToken);
 
-      return { user, token };
+      return { user, token: accessToken };
     } catch (error: any) {
       if (error?.response?.data) return rejectWithValue(error.response.data);
       return rejectWithValue(error.message)

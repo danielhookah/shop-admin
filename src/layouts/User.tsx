@@ -1,12 +1,22 @@
 import React from 'react';
 import { Outlet } from "react-router";
+import styled from "styled-components";
+import UserNavbar from "components/UserNavbar";
+
+const Wrapper = styled.div`
+  background-color: ${({ theme }) => theme.palette.primary.main};
+  height: 100vh;
+  overflow: auto;
+  display: grid;
+  grid-template-rows: 70px 1fr;
+`;
 
 const User: React.FC = () => {
   return (
-    <div style={{background: "pink"}}>
-      <h1> USER !!! </h1>
+    <Wrapper>
+      <UserNavbar />
       <Outlet />
-    </div>
+    </Wrapper>
   );
 };
 

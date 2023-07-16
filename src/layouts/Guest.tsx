@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.palette.primary.main};
   height: 100vh;
   display: grid;
+  overflow: auto;
   grid-template-rows: 70px 1fr;
 `;
 const Guest: React.FC = () => {

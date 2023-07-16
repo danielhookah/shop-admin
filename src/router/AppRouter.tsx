@@ -7,6 +7,7 @@ import User from "layouts/User";
 import NotFound from "views/NotFound";
 import PrivateRoute from "./PrivateRoute";
 import GuestRoute from "./GuestRoute";
+import ProductList from "views/ProductList";
 
 const AppRouter: React.FC = () => {
   return (
@@ -25,9 +26,7 @@ const AppRouter: React.FC = () => {
           <User />
         </PrivateRoute>
       }>
-        <Route index element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+        <Route index element={<ProductList />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>

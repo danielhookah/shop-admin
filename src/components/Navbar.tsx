@@ -11,6 +11,8 @@ const NavbarContainer = styled.nav`
   padding: 0 32px;
   background-color: #f8f8f8;
   box-shadow: rgba(0, 0, 0, 0.1) 4px 8px 10px;
+  position: sticky;
+  top: 0;
 `;
 
 const Logo = styled.img`

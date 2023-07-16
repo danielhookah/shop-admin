@@ -7,7 +7,7 @@ export const login = async (data: ILogin) => {
     const response = await axios.post(LOGIN, data, {
       withCredentials: true
     });
-    return { ...response.data, user: {} };
+    return { ...response.data };
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || "An error occurred");
   }
@@ -18,7 +18,7 @@ export const register = async (data: ILogin) => {
     const response = await axios.post(REGISTER, data, {
       withCredentials: true
     });
-    return { ...response.data, user: {} };
+    return { ...response.data };
   } catch (error: any) {
     throw new Error(error?.response?.data?.message || "An error occurred");
   }
@@ -40,7 +40,6 @@ export const refreshToken = async () => {
     const { accessToken } = response.data;
     return accessToken;
   } catch (error) {
-    console.log(111, error)
     throw new Error('Token refresh failed');
   }
 };

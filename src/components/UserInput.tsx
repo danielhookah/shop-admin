@@ -8,7 +8,7 @@ import {
 interface IUserInput extends InputHTMLAttributes<HTMLInputElement>, SpaceProps {
   label?: string;
   value?: string;
-  type?: "text" | "password" | "email";
+  type?: "text" | "password" | "email" | "number";
   placeholder?: string;
   error?: string;
   disabled?: boolean;
@@ -56,7 +56,7 @@ const Input = styled.input<{ hasError: boolean; isFocused: boolean; disabled: bo
   ${space},
 `;
 
-const ErrorMessage = styled.span`
+export const ErrorMessage = styled.span`
   color: ${({ theme }) => theme.palette.accent.red};
   font-size: 14px;
   margin-top: 4px;
