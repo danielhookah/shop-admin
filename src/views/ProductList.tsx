@@ -30,7 +30,6 @@ const ProductList: React.FC = () => {
   const user = useSelector(
     (state: RootState) => state.auth.user,
   );
-  console.log('user', user)
 
   eventEmitter.subscribe("onClickModalOpen", (data?: Product) => {
     setSelectedProduct(data);
@@ -43,12 +42,9 @@ const ProductList: React.FC = () => {
     user && dispatch(getProductsByUserId(user.id));
   }, [user]);
 
-  console.log('products', products)
-
   return (
     <Wrapper>
       {products.map(el => <ProductCard key={el.id} product={el} />)}
-      {/*<Button onClick={() => setIsModalOpen(true)}>Open Modal</Button>*/}
       <ProductModal
         isOpen={isModalOpen}
         selectedProduct={selectedProduct}

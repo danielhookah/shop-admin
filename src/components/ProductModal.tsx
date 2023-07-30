@@ -188,7 +188,7 @@ export const ProductModal: React.FC<IProductModal> = ({
                     ]);
                     trigger("attributes");
                   }}
-                  checked={value.includes(el.id)}
+                  checked={value?.includes(el.id)}
                   value={el.id}
                   name={key}
                 />
@@ -204,6 +204,9 @@ export const ProductModal: React.FC<IProductModal> = ({
     if (selectedProduct) { // @ts-ignore
       reset({...selectedProduct, attributes: selectedProduct?.attributes?.map(el => el?.id || el)})
       setImageUrls(selectedProduct?.imageUrls || [])
+    } else {
+      setImageUrls([])
+      setImages([])
     }
   }, [selectedProduct])
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import { Product } from "../types/product";
 import Card from "./Card";
 import { P } from "./Typography";
@@ -11,7 +11,11 @@ const Wrapper = styled(Card)`
   cursor: pointer;
   height: 300px;
   position: relative;
-  pointer-events: initial;
+  pointer-events: none;
+  
+  > div {
+    pointer-events: auto;
+  }
   
   ::after {
     content: 'x';
@@ -27,18 +31,30 @@ const Wrapper = styled(Card)`
     line-height: 16px;
     text-align: center;
     cursor: pointer;
-    pointer-events: initial;
+    pointer-events: auto;
   }
 `;
 
 const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const dispatch = useAppDispatch();
-  const handleOpenProductModal = () => eventEmitter.dispatch('onClickModalOpen', product)
-  const handleDeleteProduct = () => dispatch(deleteProduct(`${product.id}`));
+  const handleOpenProductModal = () => {
+    eventEmitter.dispatch('onClickModalOpen', product)
+  }
+  const handleDeleteProduct = () => {
+    dispatch(deleteProduct(`${product.id}`));
+  }
+
+  const handleClick = (e: any) => {
+    if (e?.target?.dataset?.wrapper === 'content') {
+      handleDeleteProduct()
+      return
+    }
+    handleOpenProductModal()
+  }
 
   return (
-    <Wrapper onClick={handleDeleteProduct}>
-      <div onClick={handleOpenProductModal}>
+    <Wrapper data-wrapper="content" onClick={handleClick}>
+      <div>
         <P variant="large" color="secondary">{product.name}</P>
       </div>
     </Wrapper>
